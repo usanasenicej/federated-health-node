@@ -1,0 +1,9 @@
+torch
+flwr
+opacus
+fastapi
+uvicorn
+web3
+pandas
+numpy
+scikit-learn
