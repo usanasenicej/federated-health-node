@@ -2,82 +2,46 @@
 
 > **Decentralized, Privacy-Preserving Machine Learning for Healthcare**
 
-HealthLedger FL is an enterprise-grade, multi-tier architecture demonstrating the future of medical AI. It combines **Federated Learning**, **Differential Privacy**, and **Blockchain Technology** to train deep neural networks across multiple simulated hospital nodes without ever exposing sensitive patient data. 
+HealthLedger FL is an enterprise-grade, **Polyglot Microservices Architecture** demonstrating the future of medical AI. It combines Federated Learning, Differential Privacy, Blockchain Technology, and specialized microservices in **Rust, Go, Elixir, and Haskell** to train deep neural networks across multiple simulated hospital nodes securely.
 
-All training metadata and model inferences are immutably logged to an Ethereum smart contract, creating a fully transparent and verifiable AI audit trail.
+All training metadata and inferences are immutably logged to an Ethereum smart contract, creating a fully transparent and verifiable AI audit trail.
 
 ---
 
-## 🌟 Architecture & Tech Stack
+## 🌟 The Polyglot Architecture
 
-This project is divided into four main pillars, completely avoiding basic Jupyter notebooks in favor of production-ready microservices:
+To achieve absolute maximum performance, concurrency, and security, this project assigns specific tasks to the programming languages best suited for them. 
 
-1. **Frontend Dashboard (`/frontend`)**
-   - **Tech:** React (Vite), Tailwind CSS, Framer Motion, Recharts
-   - **Role:** A visually stunning, glassmorphism-styled dashboard for doctors. It provides real-time visualizations of federated learning aggregation rounds and a live feed of blockchain audit blocks.
-   
-2. **Federated Learning Clients (`/ml_clients`)**
-   - **Tech:** PyTorch, Flower (`flwr`), Opacus, NumPy
-   - **Role:** Simulates hospital nodes. Each node generates its own private cardiovascular dataset and trains a local model. **Opacus** injects mathematical noise (Differential Privacy) to guarantee patient data cannot be reverse-engineered from the model weights.
+### 1. The Core AI Pipeline
+- **ML Aggregation Server (`/ml_server`) - Python/FastAPI/PyTorch**: Orchestrates the Flower federated training rounds and serves predictions via FastAPI.
+- **Hospital Nodes (`/ml_clients`) - Python/Opacus**: Simulates local hospital data training. Uses Differential Privacy to inject noise so patient data cannot be reverse-engineered.
 
-3. **Aggregation Server & API (`/ml_server`)**
-   - **Tech:** PyTorch, FastAPI, Flower Server
-   - **Role:** Orchestrates the federated training rounds, aggregating weights from hospital nodes to form a robust global model. The FastAPI server exposes a `/predict` endpoint that handles inference requests and simulates logging the interactions to the blockchain.
+### 2. High-Performance Microservices
+- **Privacy Enforcer (`/privacy_enforcer`) - Rust 🦀**: A blazing-fast data validation service. It ensures no PII enters the ML pipeline and securely hashes patient IDs using SHA-256 before training.
+- **Metrics Gateway (`/metrics_gateway`) - Go 🐹**: A high-throughput API gateway utilizing lightweight Goroutines to handle thousands of incoming telemetry requests from the distributed ML nodes.
+- **Realtime Relay (`/realtime_relay`) - Elixir 💧**: Built on the Erlang VM, this fault-tolerant WebSocket server broadcasts live ML training metrics directly to the frontend dashboard.
+- **DP Prover (`/dp_prover`) - Haskell ƛ**: A purely functional, academic microservice. It takes the noise multipliers and formally computes mathematical proofs that the Differential Privacy bounds (epsilon/delta) are strictly maintained.
 
-4. **Smart Contracts (`/blockchain`)**
-   - **Tech:** Solidity, Hardhat
-   - **Role:** Contains `FederationAudit.sol`, an Ethereum smart contract that acts as an immutable ledger. It logs the global model's hash and accuracy after every training round, as well as tracking every single prediction request made by doctors.
+### 3. The Interface & Ledger
+- **Dashboard (`/frontend`) - TypeScript/React**: A stunning, next-gen glassmorphism dashboard built with Vite, Tailwind CSS, and Framer Motion to visualize the entire distributed process.
+- **Smart Contracts (`/blockchain`) - Solidity**: An Ethereum smart contract (`FederationAudit.sol`) that acts as an immutable ledger for AI decisions.
 
 ---
 
 ## 🚀 Getting Started
 
-To run this complex decentralized system locally, you will need to run the components simultaneously.
+Since this is a massive polyglot architecture, running the entire stack requires Python, Node.js, Rust, Go, Elixir, and Haskell compilers.
 
-### 1. Install Dependencies
-
-Ensure you have Python 3.8+ and Node.js installed.
+For quick local testing of the core AI pipeline and UI:
 
 ```bash
-# Install Python ML dependencies
-pip install -r requirements.txt
+# 1. Start the Frontend
+cd frontend && npm install && npm run dev
 
-# Install Frontend dependencies
-cd frontend
-npm install
+# 2. Start the ML Server
+cd ml_server && pip install -r ../requirements.txt && python fl_server.py
+
+# 3. Start the Hospital Clients (Open multiple terminals to simulate hospitals)
+cd ml_clients && python client.py
 ```
-
-### 2. Start the Frontend Dashboard
-Open a terminal and start the Vite development server:
-```bash
-cd frontend
-npm run dev
-```
-Navigate to `http://localhost:5173` to view the stunning dashboard.
-
-### 3. Start the ML Aggregation Server
-Open a new terminal and start the Flower server and FastAPI backend:
-```bash
-cd ml_server
-python fl_server.py
-```
-*(Note: To run the FastAPI server, you can use `uvicorn api:app --reload --port 8000`)*
-
-### 4. Start the Hospital Nodes (Clients)
-Open a new terminal to spin up a simulated hospital node that will connect to the aggregation server and begin federated training:
-```bash
-cd ml_clients
-python client.py
-```
-*(You can open multiple terminals and run `client.py` in each to simulate multiple hospitals collaborating!)*
-
----
-
-## 🛡️ Why This Architecture?
-
-Traditional centralized machine learning models require hospitals to pool patient data into a single database, creating massive privacy and security risks. 
-
-**HealthLedger FL** solves this by bringing the *model* to the *data*. Hospitals train the model locally, and only the mathematically-noised model updates (not the data) are sent to the central server. The blockchain integration ensures that no single entity can tamper with the model's history, providing total cryptographic trust in the medical AI's decisions.
-
----
-*Built as a showcase for advanced Agentic Coding and modern AI architectures.*
+*(Check individual microservice folders for instructions on compiling the Rust, Go, Elixir, and Haskell binaries!)*
