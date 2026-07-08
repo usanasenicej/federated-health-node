@@ -1,13 +1,47 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@theme {
+  --color-background: #0a0f1e;
+  --color-card:       #1e293b;
+  --color-primary:    #38bdf8;
+  --color-secondary:  #818cf8;
+  --color-accent:     #f472b6;
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+}
 
 @layer base {
   body {
-    @apply bg-background text-white antialiased font-sans overflow-x-hidden;
+    background-color: var(--color-background);
+    color: #fff;
+    font-family: var(--font-family-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+}
+
+@layer components {
+  .glass-panel {
+    background: linear-gradient(135deg, rgba(30,41,59,0.65) 0%, rgba(10,15,30,0.55) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    border-radius: 1rem;
   }
 }
 
-.glass-panel {
-  @apply bg-card/60 backdrop-blur-md border border-white/10 shadow-2xl rounded-2xl;
+/* Ping animation for status dots */
+@keyframes ping {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+.animate-ping {
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
