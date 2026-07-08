@@ -1,9 +1,17 @@
-torch
-flwr
-opacus
-fastapi
-uvicorn
-web3
-pandas
-numpy
-scikit-learn
+# Core ML / Federated Learning
+torch>=2.2.0,<3.0
+flwr[simulation]>=1.8.0,<2.0
+opacus>=1.4.0,<2.0
+
+# API server
+fastapi>=0.111.0,<1.0
+uvicorn[standard]>=0.29.0,<1.0
+pydantic>=2.7.0,<3.0
+
+# Blockchain
+web3>=6.19.0,<7.0
+
+# Data science
+pandas>=2.2.0,<3.0
+numpy>=1.26.0,<2.0
+scikit-learn>=1.4.0,<2.0
