@@ -6,6 +6,49 @@ HealthLedger FL is an enterprise-grade, **Polyglot Microservices Architecture** 
 
 All training metadata and inferences are immutably logged to an Ethereum smart contract, creating a fully transparent and verifiable AI audit trail.
 
+> 🗓️ **Last Updated:** July 2026
+
+---
+
+## 🗺️ Architecture Overview
+
+```
+ ┌──────────────────────────────────────────────────────────────┐
+ │                    Hospital Nodes (Python/Opacus)            │
+ │          🏥 Node A      🏥 Node B      🏥 Node C            │
+ └──────────┬──────────────┬──────────────┬───────────────────┘
+            │  Federated   │  Training    │  (Diff. Privacy)
+            ▼              ▼              ▼
+ ┌──────────────────────────────────────────────────────────────┐
+ │          ML Aggregation Server  (Python / FastAPI / Flower)  │
+ └──────┬──────────────────────────────┬────────────────────────┘
+        │                              │
+        ▼                              ▼
+ ┌─────────────┐              ┌────────────────┐
+ │  Privacy    │              │ Metrics Gateway│
+ │  Enforcer   │              │  (Go / Goroutines)│
+ │  (Rust 🦀) │              └───────┬────────┘
+ └──────┬──────┘                     │ WebSocket
+        │ PII-free data              ▼
+        ▼                   ┌────────────────┐
+ ┌─────────────┐            │ Realtime Relay │
+ │  DP Prover  │            │ (Elixir 💧)   │
+ │ (Haskell ƛ) │            └───────┬────────┘
+ └─────────────┘                    │ Live metrics
+                                    ▼
+                          ┌─────────────────────┐
+                          │  Frontend Dashboard │
+                          │  (React / Vite /    │
+                          │   Tailwind / Framer)│
+                          └─────────────────────┘
+                                    │ Audit Events
+                                    ▼
+                          ┌─────────────────────┐
+                          │  Ethereum Contract  │
+                          │  (Solidity ⛓️)     │
+                          └─────────────────────┘
+```
+
 ---
 
 ## 🌟 The Polyglot Architecture
